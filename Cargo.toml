@@ -1,0 +1,10 @@
+[package]
+name = "blockchain"
+version = "0.1.0"
+authors = ["Hasan Genc <hasangencx@hotmail.com>"]
+edition = "2018"
+
+[dependencies]
+sha2 = "0.8.0"
+serde = "*"
+serde_derive = "*"
