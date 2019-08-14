@@ -1,13 +1,16 @@
-extern crate sha2;
-extern crate serde;
 #[macro_use]
 extern crate serde_derive;
-use sha2::{Sha256, Digest};
+extern crate serde;
+extern crate serde_json;
+extern crate crypto_hash;
+extern crate chrono;
 
+mod hash;
 mod block;
 mod blockchain;
 
 use blockchain::Blockchain;
 
 fn main() {
+    let blocks = Blockchain::new();
 }

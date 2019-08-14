@@ -1,42 +1,42 @@
-use sha2::{Sha256, Digest};
 use crate::block::Block;
+use crate::hash::hash;
+use chrono::{DateTime, Utc};
 use std::sync::{
     Arc,
     Mutex,
 };
 
 pub struct Blockchain {
-    chain: Arc<Mutex<Vec<Block>>>
+    pub chain: Arc<Mutex<Vec<Block>>>
 }
 
 impl Blockchain {
-    pub fn new(genesis_block: Block) -> Blockchain {
-        let chain = chain: Arc::new(Mutex::new(Vec::new()));
-        chain.push(genesis_block);
+    const GENESIS_DATA: &'static str = "genesis";
+    const GENESIS_INDEX: i32 = 0;
+
+    pub fn new() -> Blockchain {
+        let block = Self::genesis();
+        let blocks = vec![block];
+        let chain = Arc::new(Mutex::new(blocks));
 
         Blockchain {
             chain
         }
     }
 
-    pub fn calculate_hash(&self) -> String {
-        let mut hasher = Sha256::new();
-        hasher.input(data);
-        let hash = hasher.result();
-        return String::from("asdasd");
-    }
+    fn genesis() -> Block {
+        let now: DateTime<Utc> = Utc::now();
 
-    pub fn genesis_block() -> Block {
-        Block {
-            index: 0,
-            data: String::from("genesis block"),
+        let mut genesis = Block {
+            index: Blockchain::GENESIS_INDEX,
+            data: String::from(Blockchain::GENESIS_DATA),
             previous: String::from(""),
-            current: String::from("816534932c2b7154836da6afc367695e6337db8a921823784c14378abed4f7d7"),
-            timestamp: "1564825004".parse().unwrap(),
-        }
-    }
+            current: String::from(""),
+            timestamp: now.timestamp(),
+        };
 
-    pub fn generateNextBlock() -> Block {
+        genesis.current = hash(&genesis);
 
+        return genesis;
     }
 }
