@@ -39,4 +39,16 @@ impl Blockchain {
 
         return genesis;
     }
+
+    pub fn to_json(&self) -> String {
+        let mut chain = self.chain.lock().unwrap();
+        let mut blocks: Vec<String> = Vec::new();
+
+        for block in chain.iter() {
+            let block_json = block.to_json();
+            blocks.push(block_json);
+        }
+
+        return serde_json::to_string(&blocks).unwrap();
+    }
 }

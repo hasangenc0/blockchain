@@ -13,4 +13,6 @@ use blockchain::Blockchain;
 
 fn main() {
     let blocks = Blockchain::new();
+
+    println!("{}", blocks.to_json());
 }
