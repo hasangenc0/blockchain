@@ -51,4 +51,14 @@ impl Blockchain {
 
         return serde_json::to_string(&blocks).unwrap();
     }
+
+    pub fn generate_next_block(block_data: String) {
+
+    }
+
+    pub fn get_latest_block(&self) -> Block {
+        let mut chain = self.chain.lock().unwrap();
+
+        return chain.last().unwrap().clone();
+    }
 }

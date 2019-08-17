@@ -15,4 +15,7 @@ fn main() {
     let blocks = Blockchain::new();
 
     println!("{}", blocks.to_json());
+
+    println!("{}", blocks.get_latest_block().to_json());
+
 }
