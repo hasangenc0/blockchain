@@ -18,4 +18,6 @@ fn main() {
 
     println!("{}", blocks.get_latest_block().to_json());
 
+    println!("{}", blocks.generate_next_block(String::from("hasan")).to_json());
+
 }

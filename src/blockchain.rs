@@ -52,7 +52,21 @@ impl Blockchain {
         return serde_json::to_string(&blocks).unwrap();
     }
 
-    pub fn generate_next_block(block_data: String) {
+    pub fn generate_next_block(&self, block_data: String) -> Block {
+        let latest_block = self.get_latest_block();
+        let now: DateTime<Utc> = Utc::now();
+
+        let mut new_block = Block {
+            index: latest_block.index + 1,
+            data: block_data,
+            previous: latest_block.current,
+            current: String::from(""),
+            timestamp: now.timestamp()
+        };
+
+        new_block.current = hash(&new_block);
+
+        return new_block;
 
     }
 
