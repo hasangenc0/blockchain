@@ -24,22 +24,6 @@ impl Blockchain {
         }
     }
 
-    fn genesis() -> Block {
-        let now: DateTime<Utc> = Utc::now();
-
-        let mut genesis = Block {
-            index: Blockchain::GENESIS_INDEX,
-            data: String::from(Blockchain::GENESIS_DATA),
-            previous: String::from(""),
-            current: String::from(""),
-            timestamp: now.timestamp(),
-        };
-
-        genesis.current = hash(&genesis);
-
-        return genesis;
-    }
-
     pub fn to_json(&self) -> String {
         let mut chain = self.chain.lock().unwrap();
         let mut blocks: Vec<String> = Vec::new();
@@ -74,5 +58,62 @@ impl Blockchain {
         let mut chain = self.chain.lock().unwrap();
 
         return chain.last().unwrap().clone();
+    }
+
+    pub fn is_valid_block(current: Block, previous: Block) -> bool {
+        if previous.index + 1 != current.index {
+            return false
+        } else if previous.current != current.previous {
+            return false
+        }
+
+        return true
+    }
+
+    pub fn is_valid_block_structure(block: Block) -> bool {
+        true
+    }
+
+    fn genesis() -> Block {
+        let now: DateTime<Utc> = Utc::now();
+
+        let mut genesis = Block {
+            index: Blockchain::GENESIS_INDEX,
+            data: String::from(Blockchain::GENESIS_DATA),
+            previous: String::from(""),
+            current: String::from(""),
+            timestamp: now.timestamp(),
+        };
+
+        genesis.current = hash(&genesis);
+
+        return genesis;
+    }
+
+    pub fn is_valid_chain(&self) -> bool {
+        let chain = self.chain.lock().unwrap();
+        let blocks = chain.clone();
+
+        for (position, block) in blocks.iter().enumerate() {
+            if position == 0 {
+
+            } else if !Self::is_valid_block(blocks[position].clone(), blocks[position - 1].clone()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    pub fn replace_chain(&mut self, new_blocks: Blockchain) -> bool {
+        let chain = self.chain.lock().unwrap().clone();
+        let new_chain = new_blocks.chain.lock().unwrap().clone();
+
+        if new_blocks.is_valid_chain() && new_chain.clone().len() > chain.len() {
+            self.chain = new_blocks.chain.clone();
+            return true;
+        }
+
+        return false;
     }
 }

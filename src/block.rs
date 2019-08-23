@@ -22,6 +22,3 @@ impl Block {
         serde_json::to_string(self).unwrap()
     }
 }
-
-
-

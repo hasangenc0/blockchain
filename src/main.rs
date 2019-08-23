@@ -12,7 +12,9 @@ mod blockchain;
 use blockchain::Blockchain;
 
 fn main() {
-    let blocks = Blockchain::new();
+    let mut blocks = Blockchain::new();
+
+    let blocks_2 = Blockchain::new();
 
     println!("{}", blocks.to_json());
 
@@ -20,4 +22,9 @@ fn main() {
 
     println!("{}", blocks.generate_next_block(String::from("hasan")).to_json());
 
+    println!("{}", blocks.is_valid_chain());
+
+    println!("{}", blocks.replace_chain(blocks_2));
+
+    println!("{}", blocks.to_json());
 }
