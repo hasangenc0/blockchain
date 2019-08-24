@@ -5,6 +5,7 @@ extern crate serde_json;
 extern crate crypto_hash;
 extern crate chrono;
 
+mod server;
 mod hash;
 mod block;
 mod blockchain;
@@ -27,4 +28,6 @@ fn main() {
     println!("{}", blocks.replace_chain(blocks_2));
 
     println!("{}", blocks.to_json());
+
+    server::start();
 }
