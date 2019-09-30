@@ -25,7 +25,7 @@ impl Blockchain {
     }
 
     pub fn to_json(&self) -> String {
-        let mut chain = self.chain.lock().unwrap();
+        let chain = self.chain.lock().unwrap();
         let mut blocks: Vec<String> = Vec::new();
 
         for block in chain.iter() {
@@ -55,7 +55,7 @@ impl Blockchain {
     }
 
     pub fn get_latest_block(&self) -> Block {
-        let mut chain = self.chain.lock().unwrap();
+        let chain = self.chain.lock().unwrap();
 
         return chain.last().unwrap().clone();
     }
@@ -94,7 +94,7 @@ impl Blockchain {
         let chain = self.chain.lock().unwrap();
         let blocks = chain.clone();
 
-        for (position, block) in blocks.iter().enumerate() {
+        for (position, _) in blocks.iter().enumerate() {
             if position == 0 {
 
             } else if !Self::is_valid_block(blocks[position].clone(), blocks[position - 1].clone()) {

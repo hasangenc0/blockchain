@@ -1,10 +1,4 @@
-use actix_web::{web, App, HttpRequest, HttpServer, Responder, get, post};
-
-#[get("/")]
-fn home(req: HttpRequest) -> impl Responder {
-    let word = req.match_info().get("word").unwrap_or("Blockchain");
-    format!("Hello {}!", &word)
-}
+use actix_web::{App, HttpRequest, HttpServer, Responder, get, post};
 
 #[get("/blocks")]
 fn blocks(req: HttpRequest) -> impl Responder {
@@ -33,7 +27,6 @@ fn add_peer(req: HttpRequest) -> impl Responder {
 pub fn start() {
     HttpServer::new(|| {
         App::new()
-            .service(home)
             .service(blocks)
             .service(mine_block)
             .service(peers)

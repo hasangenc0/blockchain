@@ -7,6 +7,7 @@ extern crate chrono;
 
 mod server;
 mod hash;
+mod utils;
 mod block;
 mod blockchain;
 
@@ -28,6 +29,10 @@ fn main() {
     println!("{}", blocks.replace_chain(blocks_2));
 
     println!("{}", blocks.to_json());
+
+    println!("{}",blocks.get_latest_block().current);
+
+    println!("{}", utils::hex_to_binary(blocks.get_latest_block().current));
 
     server::start();
 }
