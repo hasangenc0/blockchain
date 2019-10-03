@@ -8,10 +8,12 @@ extern crate chrono;
 mod server;
 mod hash;
 mod utils;
+mod extensions;
 mod block;
 mod blockchain;
 
 use blockchain::Blockchain;
+use extensions::StringExt;
 
 fn main() {
     let mut blocks = Blockchain::new();
@@ -33,6 +35,8 @@ fn main() {
     println!("{}",blocks.get_latest_block().current);
 
     println!("{}", utils::hex_to_binary(blocks.get_latest_block().current));
+
+    println!("{}", String::from("hasan").starts_with(String::from("hasa"), 4));
 
     server::start();
 }

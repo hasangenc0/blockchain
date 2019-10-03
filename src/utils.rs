@@ -11,7 +11,6 @@ pub fn hex_to_binary(s: String) -> String {
         ].iter().cloned().collect();
 
     for c in s.chars() {
-
         match lookup_table.get(&c) {
             Some(bin) => binary_string.push_str(bin),
             None => return String::new()
