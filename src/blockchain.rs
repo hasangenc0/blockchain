@@ -50,24 +50,23 @@ impl Blockchain {
 
         new_block.current = hash(&new_block);
 
-        return new_block;
-
+        new_block
     }
 
     pub fn get_latest_block(&self) -> Block {
         let chain = self.chain.lock().unwrap();
 
-        return chain.last().unwrap().clone();
+        chain.last().unwrap().clone()
     }
 
     pub fn is_valid_block(current: Block, previous: Block) -> bool {
         if previous.index + 1 != current.index {
-            return false
+            return false;
         } else if previous.current != current.previous {
-            return false
+            return false;
         }
 
-        return true
+        true
     }
 
     pub fn is_valid_block_structure(block: Block) -> bool {
@@ -87,7 +86,7 @@ impl Blockchain {
 
         genesis.current = hash(&genesis);
 
-        return genesis;
+        genesis
     }
 
     pub fn is_valid_chain(&self) -> bool {
@@ -102,7 +101,7 @@ impl Blockchain {
             }
         }
 
-        return true;
+        true
     }
 
     pub fn replace_chain(&mut self, new_blocks: Blockchain) -> bool {
@@ -114,6 +113,6 @@ impl Blockchain {
             return true;
         }
 
-        return false;
+        false
     }
 }
