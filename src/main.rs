@@ -36,7 +36,7 @@ fn main() {
 
     println!("{}", utils::hex_to_binary(blocks.get_latest_block().current));
 
-    println!("{}", String::from("hasan").starts_with(String::from("hasa"), 4));
+    println!("{}", String::from("happy new year").starts_with(String::from("happy"), 5));
 
     server::start();
 }
